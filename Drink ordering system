@@ -1,0 +1,78 @@
+#  Epic Drinks Ordering System
+# A simple console program to order drinks, view your cart, and calculate the total bill.
+
+# Dictionary of drinks and their prices
+drinks = {
+    "sprite": 20,
+    "coke": 25,
+    "fanta": 22,
+    "stone": 23,
+    "twist": 19
+}
+
+# List to store orders
+orders = []
+
+def order_drink():
+    """Allow user to order drinks."""
+    # Show menu
+    print("\nAvailable Drinks:")
+    for key, value in drinks.items():
+        print(f"- {key}: R{value}")
+
+    # Ask how many drinks they want
+    _drink = input("\nHow many drinks do you want? ")
+
+    # Validate input (must be a number)
+    if not _drink.isdigit():
+        print(" Incorrect input(Numbers only")
+        return
+
+    # Loop for each drink order
+    for i in range(int(_drink)):
+        drink = input(f"Enter drink name ({i + 1}/{_drink}): ").lower()
+
+        # Validate drink
+        if drink not in drinks:
+            print(" That drink is not on the menu.")
+            return
+
+        # Add valid drink to orders
+        orders.append(drink)
+
+    print(" Order successful!")
+
+def view_order():
+    """View all current orders and total bill."""
+    if not orders:
+        print("\n NO ORDERS")
+    else:
+        print("\n Your orders:")
+        total = 0
+        for drink in orders:
+            print(f"- {drink.capitalize()}: R{drinks[drink]:.2f}")
+            total += drinks[drink]
+        print(f"\n Total Bill: R{total:.2f}")
+
+def menu():
+    """Main menu loop."""
+    while True:
+        print("\n=== WELCOME TO EPIC DRINKS ===")
+        print("1. Order Drink")
+        print("2. View Order")
+        print("3. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            order_drink()
+        elif choice == "2":
+            view_order()
+        elif choice == "3":
+            print(" Thanks for using Epic Drinks! Stay hydrated.")
+            break
+        else:
+            print(" Invalid choice, try again.")
+
+# Run the program
+menu()
